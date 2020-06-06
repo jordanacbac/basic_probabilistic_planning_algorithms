@@ -8,8 +8,11 @@ Ambos devem ser utilizados para resolver problemas modelados como Processos de D
 
 # Para a execução do script:
 ```python value_iteration.py nome_do_arquivo_se_estiver_no_mesmo_diretorio```
-ou:
+
+Ou:
+
 ```python value_iteration.py "endereço_do_arquivo"```
 
 Para checar as instruções de ajuda:
+
 ```python value_iteration.py -h```
