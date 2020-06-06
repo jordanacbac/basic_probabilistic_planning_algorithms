@@ -7,11 +7,11 @@ O objetivo deste repositório é apresentar as implementações dos seguintes al
 Ambos devem ser utilizados para resolver problemas modelados como Processos de Decisão Markovianos (MDPs).
 
 # Para a execução do script:
-```python value_iteration.py nome_do_arquivo_se_estiver_no_mesmo_diretorio```
+```python value_iteration.py -f nome_do_arquivo_se_estiver_no_mesmo_diretorio```
 
 Ou:
 
-```python value_iteration.py "endereço_do_arquivo"```
+```python value_iteration.py -f "endereço_do_arquivo"```
 
 Para checar as instruções de ajuda:
 
