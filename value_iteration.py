@@ -32,7 +32,40 @@ def create_actions(content_list):
 				actions[str(content_list[pos]).replace('action ', '')].append(content_list[new_pos].split(' '))
 				new_pos += 1
 
+	# If necessary, method to clean the actions (remove the discard element)
+	actions = clean_actions(actions)
 	return (actions)
+
+def create_costs(content_list):
+	# Costs are represented by a list
+	costs = []
+
+	for pos in range(len(content_list)):
+		# Identifying the line that precedes the costs
+		if(content_list[pos] == 'cost'):
+			pos += 1
+			while(content_list[pos] != 'endcost'):
+				costs.append(content_list[pos].split(' '))
+				pos += 1
+			break
+	return(costs)
+
+def create_initial_and_goal_states(content_list):
+	
+	for pos in range(len(content_list)):
+		if(content_list[pos] == 'initialstate'):
+			init = content_list[pos+1]
+		if(content_list[pos] == 'goalstate'):
+			goal = content_list[pos+1]
+	
+	return (init, goal)
+
+def clean_actions(actions):
+	for action in actions:
+		for item in actions.get(action):
+			item.pop(3)
+	
+	return(actions)
 
 def iterative_policy_evaluation():
 	return
@@ -61,15 +94,23 @@ if __name__ == '__main__':
 
 	# Calling the method responsible to create the list of states
 	states = create_states(content_list)
-	print(states)
+	#print(states)
 	
 	# Calling the method responsible to create the dict of actions
 	actions = create_actions(content_list)
-	print(actions)
+	#print(actions)
 
-	# Temporary file to store the actions (for validation purpose only)
+	# Calling the method responsible to create the list of costs
+	costs = create_costs(content_list)
+	#print(costs)
+	
+	# Calling the method responsible to read the initial and the goal state
+	initial, goal = create_initial_and_goal_states(content_list)
+	#print(initial, goal)
+
+	'''# Temporary file to store the actions (for validation purpose only)
 	file2 = open("MyFile2.txt", "w+")
-	file2.write(str(actions))
+	file2.write(str(actions))'''
 
 
 
