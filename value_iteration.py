@@ -106,7 +106,6 @@ def bellman_backup(states, states_view):
 
 	# Setting states as dataframe index
 	df.set_index('states', inplace=True)
-	print(df)
 
 	# Transposing the dataframe
 	df_t = df.T
@@ -152,9 +151,11 @@ if __name__ == '__main__':
 	#print(initial, goal)
 
 	# Generating states view to run value iteration algorithm
-	# states_view is a dictionary in which states are keys and their values are lists containing applicable actions and their costs. It does not contain the resulting state from the action.
+	# states_view is a dictionary in which states are keys and their values are lists containing applicable actions and their costs, followed by the resulting states and their probabilities.
 	states_view = create_states_view(costs)
-
+	# print(states_view)
+	
+	# Next steps:
 	teste = bellman_backup(states, states_view)
 
 	'''# Temporary file to store the actions (for validation purpose only)
