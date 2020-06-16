@@ -48,7 +48,8 @@ def create_costs(content_list):
 				costs.append(content_list[pos].split(' '))
 				pos += 1
 			break
-	return(costs)
+
+	return (costs)
 
 def create_initial_and_goal_states(content_list):
 	
@@ -65,13 +66,55 @@ def clean_actions(actions):
 		for item in actions.get(action):
 			item.pop(3)
 	
-	return(actions)
+	return (actions)
+
+def create_states_view(costs):
+	states = []
+	states_view = {}
+	for element in costs:
+		states.append(element[0])
+	states = set(states)
+	for state in states:
+		states_view[state] = []
+	
+	for element in costs:
+		for state in states:
+			if (element[0] == state):
+				states_view[state].append(element[1:])
+
+	states_view_complete = states_view.copy()
+	for state in states_view:
+		for pos in range(len(states_view.get(state))):
+			action = states_view.get(state)[pos][0]
+			for act in actions:
+				if (act == action):
+					for el in actions.get(act):
+						if (el[0] == state):
+							states_view_complete.get(state)[pos].extend(el[1:])
+	
+	return (states_view_complete)
 
 def iterative_policy_evaluation():
 	return
 
-def bellman_backup():
-	return
+def bellman_backup(states, states_view):
+
+	# Creating dataframe from states
+	df = pd.DataFrame(states)
+	# Giving the only column a name (states)
+	df.columns = ['states']
+
+	# Setting states as dataframe index
+	df.set_index('states', inplace=True)
+	print(df)
+
+	# Transposing the dataframe
+	df_t = df.T
+	print(df_t)
+
+	# Next steps: Calculate Q*(state, action) and V*(state)
+	
+	return (0)
 
 def value_iteration():
 	return
@@ -108,16 +151,18 @@ if __name__ == '__main__':
 	initial, goal = create_initial_and_goal_states(content_list)
 	#print(initial, goal)
 
+	# Generating states view to run value iteration algorithm
+	# states_view is a dictionary in which states are keys and their values are lists containing applicable actions and their costs. It does not contain the resulting state from the action.
+	states_view = create_states_view(costs)
+
+	teste = bellman_backup(states, states_view)
+
 	'''# Temporary file to store the actions (for validation purpose only)
 	file2 = open("MyFile2.txt", "w+")
 	file2.write(str(actions))'''
 
-
-
 	#df = pd.DataFrame(content)
 	#print(df.head())
-
-
 
 	## Proximo passo: checar a melhor estrutura de dados para armazenar os estados e gerar a matriz
 	## O que pretendo fazer: criar um dataframe e converter para numpy array depois.
