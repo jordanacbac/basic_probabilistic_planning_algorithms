@@ -110,13 +110,14 @@ def create_df_states(states):
 
 	return(df_t)
 
-def iterative_policy_evaluation():
+def iterative_policy_evaluation(df, states_view):
+	df = choose_proper_policy(df, states_view)
 	return
 
-def bellman_backup(state, states_view, df):
+def bellman_backup(state, states_view, df, n):#devolve Q do estado na iteracao n
 	
 	# Next steps: Calculate Q*(state, action) and V*(state)
-
+	#df vai ser a tabela com tds valores de cada iteracao n
 	#Calc Q*
 	# get actions
 	actions = states_view.get(state)
@@ -124,12 +125,12 @@ def bellman_backup(state, states_view, df):
 	for action in actions:
 		# check if it has more than 1 state for each move
 		if len(action) == 4:
-			Q.append( float(action[1]) + float(df.loc[0, action[2]] ) )
+			Q.append( float(action[1]) + float(df.loc[n-1, action[2]] ) )
 		else:
 			# if it has more than 1 result, compute the probability
 			Q_value = 0
 			for num_states in range (2, len(action), 2):
-				Q_value += ( float(action[num_states+1]) * float(df.loc[0, action[num_states]]) )
+				Q_value += ( float(action[num_states+1]) * float(df.loc[n-1, action[num_states]]) )
 			Q.append(float(action[1]) + Q_value ) 
 	return( min(Q) )	
 
@@ -160,17 +161,17 @@ def value_iteration(df, states_view):
 		for state in df.columns:
 
 			#nao sei como tratar
-			if state == "robot-at-x20y20":
-				continue
+			#if state == "robot-at-x20y20":
+			#	continue
 
 			# calculate bellman backup
-			Vn = bellman_backup(state, states_view, df)
+			Vn = bellman_backup(state, states_view, df, n)
 
 			#compute residual
-			df_residual.loc[0, state] = Vn - df.loc[0, state] 
+			df_residual.loc[n-1, state] = abs(Vn - df.loc[n-1, state]) 
 
 			# update Value
-			df.loc[0, state] = Vn
+			df.loc[n, state] = Vn
 
 		# check epsilon
 		df_check = df_residual.transpose()
@@ -184,17 +185,39 @@ def value_iteration(df, states_view):
 	print("Value iteration: " + str(n) + " iterations, runtime: " + str(t) )
 
 	return
-	
+
+#retorna df com politica propria
+def choose_proper_policy(df, states_view):#df das iteracoes, states_view tds acoes de cada estado
+	pos_state = 0
+	for state in df.columns:
+		action_chosen = ''
+		out = 0 #1 eh para sair
+		while(out == 0):
+			action_random = randrange(4)
+			actions = states_view.get(state)
+			i = 0
+			for act in actions:
+				if (i = action_random):
+					if((act[2] != state) or (float(act[3]) != 1)):#se prox estado nao eh igual o atual ou prob nao eh 1, pode
+						action_chosen = act[0]
+						out = 1
+						break
+				else:
+					i+=1
+		df.loc[0, state] = action_chosen #vai armazenar 'move-north',...
+		pos_state+=1
+	return df
+
 if __name__ == '__main__':
 
 	# Creating script argument to indicate the problem file that must be read
-	parser = ArgumentParser()
-	parser.add_argument("-f", "--file", dest="filename", help="file to be read", metavar="FILE")
-	args = parser.parse_args()
+	#parser = ArgumentParser()
+	#parser.add_argument("-f", "--file", dest="filename", help="file to be read", metavar="FILE")
+	#args = parser.parse_args()
 	
 	# Generating a list for the file content and reading it
 	content_list = []
-	with open(args.filename) as file:
+	with open("C:/Users/Laura Takako/Documents/tpia - ep2/planejamentoEmIA_ep2/TestesGrid/FixedGoalInitialState/navigation_1.net") as file:
 		content = file.readlines()
 	
 	# Replacing "\t", spliting the file on line breaks and filling in the list with the file's content
