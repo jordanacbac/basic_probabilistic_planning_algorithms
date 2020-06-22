@@ -193,11 +193,11 @@ def choose_proper_policy(df, states_view):#df das iteracoes, states_view tds aco
 		action_chosen = ''
 		out = 0 #1 eh para sair
 		while(out == 0):
-			action_random = randrange(4)
+			action_random = random.randrange(4)
 			actions = states_view.get(state)
 			i = 0
 			for act in actions:
-				if (i = action_random):
+				if (i == action_random):
 					if((act[2] != state) or (float(act[3]) != 1)):#se prox estado nao eh igual o atual ou prob nao eh 1, pode
 						action_chosen = act[0]
 						out = 1
