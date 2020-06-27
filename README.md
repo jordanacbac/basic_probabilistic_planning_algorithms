@@ -10,6 +10,7 @@ As saídas incluem a política, o número de iterações até a convergência e 
 
 # Para a execução do script:
 No terminal, execute o seguinte comando:
+
 ```python value_and_policy_iteration.py -f "endereço_do_arquivo_do_dominio" -pp "endereço_do_arquivo_da politica_propria"```
 
 Para checar as instruções de ajuda:
