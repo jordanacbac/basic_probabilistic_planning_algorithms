@@ -198,9 +198,9 @@ def bellman_backup(state, states_view, df, n, ret):
 				Q_value = 0
 				for num_states in range (2, len(action), 2):
 					Q_value += ( float(action[num_states+1]) * float(df.loc[n-1, action[num_states]]) )
-				Q.append(float(action[1]) + Q_value ) 
+				Q.append(float(action[1]) + Q_value )
 		if(ret == 0):
-			return( min(Q) )	
+			return( float(min(Q)) )	
 		else:
 			index = Q.index(min(Q))
 			if(index==0): return 'south'
@@ -219,8 +219,8 @@ def value_iteration(df, states_view, goal):
 	df_result = df.copy()
 
 	# Generating the pseudo random numbers for each state (numbers interval from 0 to 10):
-	for i in df.columns:
-		df.loc[0, i] = random.randint(0,10)
+	for col in df.columns:
+		df.loc[0, col] = random.randint(0,10)
 
 	# Creating dataframe to store residual
 	df_residual = df.copy()
@@ -228,6 +228,7 @@ def value_iteration(df, states_view, goal):
 		df_residual.loc[0, i] = 999
 
 	# Both the cost of the goal to reach itself, and its residual will always be zero
+	df.loc[0, goal] = 0
 	df_residual.loc[0, goal] = 0
 
 	# Defining epsilon as defined by the Professor
@@ -261,6 +262,7 @@ def value_iteration(df, states_view, goal):
 
 		# Stop condition: max residual < epsilon
 		if max_residual < epsilon:
+			df.to_csv("replace.csv")
 			for i in df_result.columns:
 				df_result.loc[0, i] = df.loc[n, i]
 			print(df_result)
@@ -281,6 +283,7 @@ if __name__ == '__main__':
 	parser = ArgumentParser()
 	parser.add_argument("-f", dest="filename", help="domain file to be read")
 	parser.add_argument("-pp", dest="proper_policy", help="proper policy to start policy iteration")
+	#parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
 	args = parser.parse_args()
 	
 	# Generating a list for the file content and reading it
@@ -312,6 +315,8 @@ if __name__ == '__main__':
 	
 	# Calling the method responsible to create a dataframe from the list of states
 	df = create_df_states(states)
+	# To execute the slides example:
+	#df.loc[0] = {'robot-at-x0y0': float(3), 'robot-at-x0y1': float(3), 'robot-at-x1y0-1': float(2), 'robot-at-x2y0': float(0), 'robot-at-x2y1': float(1), 'robot-at-x2y2': float(2)}
 
 	# Calling value iteration method:
 	value_iteration(df, states_view,goal)
