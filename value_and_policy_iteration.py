@@ -215,6 +215,9 @@ def value_iteration(df, states_view, goal):
 	# t variable to count the algorithm execution time
 	t = time.time()
 
+	# Generating the df responsible to store the best policies:
+	df_result = df.copy()
+
 	# Generating the pseudo random numbers for each state (numbers interval from 0 to 10):
 	for i in df.columns:
 		df.loc[0, i] = random.randint(0,10)
@@ -258,10 +261,17 @@ def value_iteration(df, states_view, goal):
 
 		# Stop condition: max residual < epsilon
 		if max_residual < epsilon:
+			for i in df_result.columns:
+				df_result.loc[0, i] = df.loc[n, i]
+			print(df_result)
 			break
 
 	t = time.time() - t
 	print("Value iteration: " + str(n) + " iterations, runtime: " + str(t) )
+
+	for state in df_result.columns:
+		df_result.loc[1, state] = bellman_backup(state, states_view, df, n, 1)
+	print(df_result)
 
 	return
 
@@ -277,6 +287,8 @@ if __name__ == '__main__':
 	content_list = []
 	with open(args.filename) as file:
 		content = file.readlines()
+	'''with open("replace/navigation_1.net") as file:
+		content = file.readlines()'''
 	
 	# Replacing "\t", spliting the file on line breaks and filling in the list with the file's content
 	for element in content:
