@@ -369,7 +369,7 @@ if __name__ == '__main__':
 	#reset the variable
 	df = create_df_states(states)
 	# Calling policy iteration method:
-	iterative_policy_evaluation(df, states_view, proper, goal)
+	iterative_policy_evaluation(df,states_view,proper,goal,initial,states[-1])
 
 	'''with open("PoliticasFixedRandom/FixedGoalInitialState/navigation_1.net_politicas.json") as json_file:
 		proper = json.load(json_file)
