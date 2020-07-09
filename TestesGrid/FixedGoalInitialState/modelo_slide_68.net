@@ -1,36 +1,36 @@
 states
-	robot-at-x0y0, robot-at-x0y1, robot-at-x1y0, robot-at-x2y0, robot-at-x2y1, robot-at-x2y2
+	robot-at-x0y0, robot-at-x0y1, robot-at-x0y2, robot-at-x1y0, robot-at-x1y2, robot-at-x2y2
 endstates
 
 action move-south
-	robot-at-x1y0 robot-at-x0y1 1.000000 1.000000
+	robot-at-x0y1 robot-at-x1y0 1.000000 1.000000
 endaction
 
 action move-north
-	robot-at-x0y0 robot-at-x1y0 1.000000 1.000000
-	robot-at-x0y1 robot-at-x1y0 1.000000 1.000000
-	robot-at-x1y0 robot-at-x2y1 1.000000 1.000000
+	robot-at-x0y0 robot-at-x0y1 1.000000 1.000000
+	robot-at-x0y1 robot-at-x1y2 1.000000 1.000000
+	robot-at-x1y0 robot-at-x0y1 1.000000 1.000000
 endaction
 
 action move-west
-	robot-at-x2y1 robot-at-x2y0 1.000000 1.000000
-	robot-at-x2y2 robot-at-x2y1 1.000000 1.000000
+	robot-at-x1y2 robot-at-x0y2 1.000000 1.000000
+	robot-at-x2y2 robot-at-x1y2 1.000000 1.000000
 endaction
 
 action move-east
-	robot-at-x0y0 robot-at-x0y1 1.000000 1.000000
-	robot-at-x2y1 robot-at-x2y2 0.400000 0.600000
-	robot-at-x2y1 robot-at-x2y0 0.600000 0.400000
+	robot-at-x0y0 robot-at-x1y0 1.000000 1.000000
+	robot-at-x1y2 robot-at-x2y2 0.400000 0.600000
+	robot-at-x1y2 robot-at-x0y2 0.600000 0.400000
 endaction
 
 cost
 	robot-at-x0y0 move-north 1.000000
 	robot-at-x0y0 move-east 1.000000
+	robot-at-x0y1 move-south 1.000000
 	robot-at-x0y1 move-north 1.000000
-	robot-at-x1y0 move-south 1.000000
 	robot-at-x1y0 move-north 1.000000
-	robot-at-x2y1 move-east 2.000000
-	robot-at-x2y1 move-west 5.000000
+	robot-at-x1y2 move-east 2.000000
+	robot-at-x1y2 move-west 5.000000
 	robot-at-x2y2 move-west 1.000000
 endcost
 
@@ -39,7 +39,7 @@ initialstate
 endinitialstate
 
 goalstate
-	robot-at-x2y0
+	robot-at-x0y2
 endgoalstate
 
 Grid:
