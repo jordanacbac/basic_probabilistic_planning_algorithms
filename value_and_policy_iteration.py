@@ -308,7 +308,7 @@ def value_iteration(df, states_view, goal, initial, last_state):
 def buildGrid(statesANDactions, lastState, initial):
 
 	index = lastState.split("x")[1].split("y")
-	grid = [ [ "*" for y in range(int(index[0])+1) ] for x in range(int(index[1])+1) ] 
+	grid = [ [ "*" for y in range(int(index[0])) ] for x in range(int(index[1])) ] 
 
 	sort_states = sorted(statesANDactions.keys())
 	action = ""
@@ -319,13 +319,13 @@ def buildGrid(statesANDactions, lastState, initial):
 		elif("west" in statesANDactions[i]): action = "←"
 		else: action = "G"
 		index = str(i).split("x")[1].split("y")
-		grid[int(index[0])][int(index[1])] = action
+		grid[int(index[1])-1][int(index[0])-1] = action
 
 	index = initial.split("x")[1].split("y")
-	if(grid[int(index[0])][int(index[1])] == "↑"): grid[int(index[0])][int(index[1])] ="▲"
-	elif(grid[int(index[0])][int(index[1])] == "↓"): grid[int(index[0])][int(index[1])] ="▼"
-	elif(grid[int(index[0])][int(index[1])] == "→"): grid[int(index[0])][int(index[1])] ="▶"
-	elif(grid[int(index[0])][int(index[1])] == "←"): grid[int(index[0])][int(index[1])] ="◀"
+	if(grid[int(index[1])-1][int(index[0])-1] == "↑"): grid[int(index[1])-1][int(index[0])-1] ="▲"
+	elif(grid[int(index[1])-1][int(index[0])-1] == "↓"): grid[int(index[1])-1][int(index[0])-1] ="▼"
+	elif(grid[int(index[1])-1][int(index[0])-1] == "→"): grid[int(index[1])-1][int(index[0])-1] ="▶"
+	elif(grid[int(index[1])-1][int(index[0])-1] == "←"): grid[int(index[1])-1][int(index[0])-1] ="◀"
 
 	for x in reversed(grid):
 		print(x)
