@@ -128,10 +128,10 @@ def iterative_policy_evaluation(df, states_view, proper_policy, goal, initial, l
 	# First iteration:
 	n = 1
 	for state in df.columns:
-		# Receiving pi action for each state based on the proper policy first received 
-		PIn = proper_policy[state]
 		# If the state is not a goal, then it is necessary to:
 		if(state != goal):
+			# Receiving pi action for each state based on the proper policy first received 
+			PIn = proper_policy[state]
 			# Calculate the approximation evaluation of PIn
 			Vpin = policy_evaluation(state, PIn, df, states_view, n)
 			# Update value
@@ -143,7 +143,7 @@ def iterative_policy_evaluation(df, states_view, proper_policy, goal, initial, l
 	# Other necessary iterations
 	while(True):
 		n += 1
-		
+	
 		for state in df.columns:
 			if(state == goal):
 				# The cost of the goal to reach itself will always be zero
@@ -308,6 +308,7 @@ def value_iteration(df, states_view, goal, initial, last_state):
 def buildGrid(statesANDactions, lastState, initial):
 
 	index = lastState.split("x")[1].split("y")
+	
 	grid = [ [ "*" for y in range(int(index[0])) ] for x in range(int(index[1])) ] 
 
 	sort_states = sorted(statesANDactions.keys())
