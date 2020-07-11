@@ -174,7 +174,7 @@ def iterative_policy_evaluation(df, states_view, proper_policy, goal, initial, l
 	print("Policy iteration: " + str(n) + " iterations, runtime: " + str(t) )
 	
 	# Calling method responsible for the grid visualization
-	buildGrid(current_proper_policy, last_state, initial)
+	buildGrid(current_proper_policy, last_state, initial, False)
 
 	return
 
@@ -287,6 +287,9 @@ def value_iteration(df, states_view, goal, initial, last_state):
 
 		# Stop condition: max residual < epsilon
 		if max_residual < epsilon:
+			for i in df_result.columns:
+				df_result.loc[0, i] = df.loc[n, i]
+			print(df_result)
 			break
 
 	t = time.time() - t
@@ -296,16 +299,19 @@ def value_iteration(df, states_view, goal, initial, last_state):
 	best_action={}
 	for state in df_result.columns:
 		best_action[state] = bellman_backup(state, states_view, df, n, 1)
+		df_result.loc[1, state] = bellman_backup(state, states_view, df, n, 1)
 	# Setting goal state equals to '-', so this won't be null 
 	best_action[goal] = "-"
 	
 	# Calling method responsible for the grid visualization
-	buildGrid(best_action, last_state, initial)
+	buildGrid(best_action, last_state, initial, True)
 
 	return
 
 # Method responsible for the grid visualization
-def buildGrid(statesANDactions, lastState, initial):
+def buildGrid(statesANDactions, lastState, initial, flag):
+
+	f = open("execution.txt", "a", encoding="utf-8")
 
 	index = lastState.split("x")[1].split("y")
 	
@@ -328,9 +334,18 @@ def buildGrid(statesANDactions, lastState, initial):
 	elif(grid[int(index[1])-1][int(index[0])-1] == "→"): grid[int(index[1])-1][int(index[0])-1] ="▶"
 	elif(grid[int(index[1])-1][int(index[0])-1] == "←"): grid[int(index[1])-1][int(index[0])-1] ="◀"
 
+	f.writelines("\n")
+	if (flag == True):
+		f.writelines("Value Iteration Grid:")
+	else:
+		f.writelines("Policy Iteration Grid:")
+	f.writelines("\n")
 	for x in reversed(grid):
 		print(x)
+		f.writelines(x)
+		f.writelines("\n")
 
+	f.close()
 	return
 
 
