@@ -287,9 +287,6 @@ def value_iteration(df, states_view, goal, initial, row, column):
 
 		# Stop condition: max residual < epsilon
 		if max_residual < epsilon:
-			for i in df_result.columns:
-				df_result.loc[0, i] = df.loc[n, i]
-			print(df_result)
 			break
 
 	t = time.time() - t
@@ -299,7 +296,6 @@ def value_iteration(df, states_view, goal, initial, row, column):
 	best_action={}
 	for state in df_result.columns:
 		best_action[state] = bellman_backup(state, states_view, df, n, 1)
-		df_result.loc[1, state] = bellman_backup(state, states_view, df, n, 1)
 	# Setting goal state equals to '-', so this won't be null 
 	best_action[goal] = "-"
 	
@@ -311,6 +307,10 @@ def value_iteration(df, states_view, goal, initial, row, column):
 # Method responsible for the grid visualization
 def buildGrid(statesANDactions, row, column, initial, flag):
 
+	# flag == True : Value iteration
+	# flag == False : Policy iteration
+
+	# Appends content to the file in the path
 	f = open("execution.txt", "a", encoding="utf-8")
 	
 	grid = [ [ "*" for y in range(row) ] for x in range(column) ] 
@@ -339,7 +339,6 @@ def buildGrid(statesANDactions, row, column, initial, flag):
 		f.writelines("Policy Iteration Grid:")
 	f.writelines("\n")
 	for x in reversed(grid):
-		print(x)
 		f.writelines(x)
 		f.writelines("\n")
 
@@ -388,8 +387,6 @@ if __name__ == '__main__':
 	
 	# Calling the method responsible to create a dataframe from the list of states
 	df = create_df_states(states)
-	# To execute the slides example:
-	#df.loc[0] = {'robot-at-x0y0': float(3), 'robot-at-x0y1': float(3), 'robot-at-x1y0': float(2), 'robot-at-x2y0': float(0), 'robot-at-x2y1': float(1), 'robot-at-x2y2': float(2)}
 
 	# Calling value iteration method:
 	value_iteration(df, states_view, goal, initial, row, column)

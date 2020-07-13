@@ -1,0 +1,11 @@
+slide_68
+
+Value Iteration Grid:
+G→←
+↑**
+▲↑*
+
+Policy Iteration Grid:
+G→←
+↑**
+▲↑*
