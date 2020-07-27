@@ -25,7 +25,9 @@ To check the help instructions:
 
 
 # Final comments:
-The code was developed for Topics in Planning in Artificial Intelligence subject as part of the Information Systems course from Universidade de São Paulo (USP) in 2020. The group is composed by:
+The code was developed for Topics in Planning in Artificial Intelligence subject as part of the Information Systems course from Universidade de São Paulo (USP) in 2020. The report from the project is in the repository, written in Brazilian Portuguese.
+
+The group is composed by:
 - [dHirabara](https://github.com/dHirabara)
 - [jordanacbac](https://github.com/jordanacbac)
 - [laurakohatsu](https://github.com/laurakohatsu)
