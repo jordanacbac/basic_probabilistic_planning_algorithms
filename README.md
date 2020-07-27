@@ -1,18 +1,29 @@
-# Exercício Programa 2 da Disciplina de Planejamento em Inteligência Artificial
+# Basic Probabilistic Planning Algorithms
 
-O objetivo deste repositório é apresentar as implementações dos seguintes algoritmos:
-1. Algoritmo de Iteração de Valor
-2. Algoritmo de Iteração de Política
+This project was developed to represent simple (without information) probabilistic planning algorithms. The group used Stochastic Short-Path Markovian Decision Process (SSP MDP), whose characteristic is the lack of information on the number of actions to be taken, but it is known that this quantity is finite, because when a goal state is reached, no further action is taken.
 
-Ambos devem ser utilizados para resolver problemas modelados como Processos de Decisão Markovianos (MDPs) no domínio gridworld.
-As saídas incluem a política, o número de iterações até a convergência e o tempo em mili-segundos gasto pelo algoritmo.
+The following algorithms were implemented:
+
+1. Value Iteration
+2. Policy iteration
+
+Both should be used to solve problems modeled as Markovian Decision Processes (MDPs) in the gridworld domain.
+The outputs include the policy (like in the image below), the number of iterations until convergence and the time in milliseconds spent by the algorithm.
 
 
-# Para a execução do script:
-No terminal, execute o seguinte comando:
+# To execute the script:
+Open the terminal and run the following command:
 
-```python value_and_policy_iteration.py -f "endereço_do_arquivo_do_dominio" -pp "endereço_do_arquivo_da_politica_propria" -r quantidade_de_linhas -c quantidade_de_colunas```
+```python value_and_policy_iteration.py -f "domain_file_address" -pp "proper_policy_file_address" -r number_of_grid_lines -c number_of_grid_columns```
 
-Para checar as instruções de ajuda:
+To check the help instructions:
 
 ```python value_and_policy_iteration.py -h```
+
+
+# Final comments:
+The code was developed for Topics in Planning in Artificial Intelligence subject as part of the Information Systems course from Universidade de São Paulo (USP) in 2020. The group is composed by:
+- [dHirabara](https://github.com/dHirabara)
+- [jordanacbac](https://github.com/jordanacbac)
+- [laurakohatsu](https://github.com/laurakohatsu)
+- [Rodrigump](https://github.com/Rodrigump)
