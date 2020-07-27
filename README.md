@@ -10,6 +10,9 @@ The following algorithms were implemented:
 Both should be used to solve problems modeled as Markovian Decision Processes (MDPs) in the gridworld domain.
 The outputs include the policy (like in the image below), the number of iterations until convergence and the time in milliseconds spent by the algorithm.
 
+Example of resulting policy for each algorithm: 
+![alt text](https://github.com/jordanacbac/planejamentoEmIA_ep2/blob/master/Results/FixedGoalInitialState_Navigation1.png "FixedGoalInitialState_Navigation1.png")
+
 
 # To execute the script:
 Open the terminal and run the following command:
